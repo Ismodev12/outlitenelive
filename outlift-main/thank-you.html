@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merci — Outlet en Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:#eceae2; color:#1b1b2b;
+    min-height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; padding:40px 20px;
+  }
+  .logo-img{ width:200px; max-width:60%; height:auto; margin-bottom:34px; }
+
+  .card{
+    background:#fff; border-radius:22px;
+    box-shadow:0 10px 40px rgba(0,0,0,.06);
+    padding:40px 36px; max-width:520px; width:100%;
+  }
+  .check{
+    width:84px; height:84px; border-radius:50%;
+    background:#d9f2df; color:#2e7d32;
+    display:flex; align-items:center; justify-content:center;
+    font-size:40px; margin:0 auto 22px;
+  }
+  h1{ font-size:27px; font-weight:800; margin-bottom:12px; }
+  .lead{ font-size:15px; color:#555; max-width:380px; margin:0 auto 28px; line-height:1.55; }
+
+  .summary{
+    background:#f1efe8; border-radius:14px;
+    padding:22px 22px 10px; text-align:left; margin-bottom:26px;
+  }
+  .sum-row{ display:flex; justify-content:space-between; align-items:center;
+    font-size:15px; padding:9px 0; color:#555; }
+  .sum-row .val{ color:#1b1b2b; font-weight:600; }
+  .sum-row.ref .val{ font-weight:800; }
+  .sum-row.total{ border-top:1px solid #ddd9cd; margin-top:6px; padding-top:16px; }
+  .sum-row.total span:first-child{ color:#1b1b2b; }
+  .sum-row.total .val{ font-weight:800; font-size:16px; }
+
+  .btn{
+    display:block; text-decoration:none; width:100%;
+    padding:17px; border-radius:12px; font-weight:700;
+    font-size:14px; letter-spacing:.5px; margin-top:12px; text-align:center;
+  }
+  .btn.dark{ background:#0c0c0c; color:#fff; }
+  .btn.dark:hover{ background:#232323; }
+  .btn.light{ background:#fff; color:#1b1b2b; border:1px solid #e2e0d6; }
+  .btn.light:hover{ background:#faf9f5; }
+
+  .foot{ margin-top:30px; font-size:13px; color:#8a8575; }
+</style>
+</head>
+<body>
+  <img class="logo-img" src="logo.png" alt="Outlet en Live" width="900" height="380">
+
+  <div class="card">
+    <div class="check">&#10003;</div>
+    <h1>Merci pour votre commande&nbsp;!</h1>
+    <p class="lead">Votre commande a bien été envoyée.<br>⌛️Veuillez patienter quelques minutes et valider l'opération dans l'application de votre banque.</p>
+
+    <div class="summary">
+      <div class="sum-row"><span>Prochaine étape</span><span class="val">Confirmation de la commande</span></div>
+      <div class="sum-row"><span>Livraison</span><span class="val">Mondial Relay</span></div>
+    </div>
+
+    <a class="btn dark" href="track.html">SUIVRE MES COMMANDES</a>
+    <a class="btn light" href="/">RETOUR À LA BOUTIQUE</a>
+  </div>
+
+  <p class="foot">Notre service client est joignable du lundi au vendredi, de 9 h à 17 h.</p>
+
+</body>
+</html>

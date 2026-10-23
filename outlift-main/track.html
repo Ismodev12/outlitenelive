@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suivi de vos commandes — Outlet en Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{ --bg:#eceae2; --text:#1b1b2b; --brown:#96835e; }
+  body{ font-family:'Poppins',sans-serif; background:#fff; color:var(--text); min-height:100vh; }
+
+  /* ---------- Header band ---------- */
+  .topbar{
+    background:var(--bg); padding:26px 40px;
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .topbar img{ width:170px; max-width:46vw; height:auto; display:block; }
+  .return-btn{
+    position:absolute; right:40px; top:50%; transform:translateY(-50%);
+    background:#0c0c0c; color:#fff; text-decoration:none;
+    padding:13px 26px; border-radius:12px; font-weight:700;
+    font-size:13px; letter-spacing:.5px;
+  }
+  .return-btn:hover{ background:#232323; }
+
+  /* ---------- Content ---------- */
+  .wrap{ max-width:1180px; margin:0 auto; padding:56px 20px 80px; }
+  h1{ text-align:center; font-size:30px; font-weight:800; margin-bottom:26px; }
+  .note{ text-align:center; color:var(--brown); font-size:15px; line-height:1.7; }
+
+  @media (max-width:640px){
+    .topbar{ padding:22px 20px; }
+    .return-btn{ right:20px; padding:11px 18px; }
+    h1{ font-size:24px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <img src="logo.png" alt="Outlet en Live">
+    <a class="return-btn" href="/">RETOUR</a>
+  </div>
+
+  <div class="wrap">
+    <h1>SUIVI DE VOS COMMANDES</h1>
+    <p class="note">Pour suivre votre commande, contactez notre service client en indiquant votre référence de commande.</p>
+  </div>
+
+</body>
+</html>

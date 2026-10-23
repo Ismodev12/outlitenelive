@@ -1,0 +1,25 @@
+# ============================================
+#  Outlet en Live — configuration Netlify
+# ============================================
+
+[build]
+  # Site statique : on publie le dossier tel quel.
+  publish = "."
+
+# --- URL propre pour la page de confirmation ---
+# Permet d'utiliser /merci (sans .html)
+[[redirects]]
+  from = "/merci"
+  to = "/merci.html"
+  status = 200
+
+# --- Fallback SPA désactivé : site multi-pages classique ---
+# (rien à ajouter ici pour du HTML statique)
+
+# --- En-têtes de sécurité de base ---
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

